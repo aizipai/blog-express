@@ -7,6 +7,7 @@ import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import router from './router/index.js'
+import routerAdmin from './router/admin.js'
 
 const config = require('./config.js')
 
@@ -32,8 +33,9 @@ const allowCrossDomain = function(req, res, next) {
 app.use(allowCrossDomain);
 
 //设置路由
-app.use(router)
+app.use('/api',router)
 
+//链接数据库
 mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/blog`, function (err) {
     if (err) {
         console.log(err, "数据库连接失败");
